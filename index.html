@@ -1,0 +1,1148 @@
+
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SFUAP Natação | Resultados</title>
+  <meta name="description" content="Resultados de natação pura e águas abertas da SFUAP.">
+
+  <style>
+    :root {
+      color-scheme: light;
+      --green: #08783e;
+      --deep: #064b2b;
+      --lime: #c6f36b;
+      --paper: #f5f7f3;
+      --surface: #fff;
+      --ink: #142019;
+      --muted: #65736a;
+      --line: #e1e8e1;
+      --soft: #eaf4ec;
+      --danger: #bd3434;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+    }
+
+    button, input, select { font: inherit; }
+    button { cursor: pointer; }
+
+    .hero {
+      color: white;
+      background: linear-gradient(125deg, #053f25, #08783e 65%, #159653);
+      padding: 26px max(22px, calc((100vw - 1160px) / 2)) 38px;
+    }
+
+    .top, .brand, .hero-bottom, .section-head, .toolbar,
+    .tabs, .form-actions, .modal-head {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .top, .section-head, .modal-head {
+      justify-content: space-between;
+    }
+
+    .brand {
+      font-weight: 850;
+      gap: 13px;
+    }
+
+    .crest {
+      width: 56px;
+      height: 56px;
+      flex: 0 0 56px;
+      display: grid;
+      place-items: center;
+      border: 2px solid #d8f6b6;
+      border-radius: 50%;
+      background: #ffffff12;
+      color: #d8f6b6;
+      font-size: 15px;
+      font-weight: 900;
+      letter-spacing: -.05em;
+    }
+
+    .eyebrow {
+      color: #d8f6b6;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .14em;
+    }
+
+    h1 {
+      font-size: clamp(34px, 5vw, 54px);
+      line-height: 1.04;
+      letter-spacing: -.045em;
+      margin: 34px 0 12px;
+    }
+
+    .hero p {
+      max-width: 620px;
+      line-height: 1.6;
+      color: #e0f0e5;
+    }
+
+    .hero-bottom {
+      flex-wrap: wrap;
+      margin-top: 22px;
+    }
+
+    .pill {
+      border: 1px solid #ffffff44;
+      background: #ffffff13;
+      padding: 9px 13px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .wrap {
+      max-width: 1160px;
+      margin: auto;
+      padding: 28px 22px 54px;
+    }
+
+    .section-head {
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    h2 {
+      font-size: 23px;
+      margin: 0;
+      letter-spacing: -.03em;
+    }
+
+    h3 { margin-top: 0; }
+
+    .muted, .tiny {
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 5px;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 13px;
+      margin-bottom: 30px;
+    }
+
+    .stat, .panel, .tablebox, .modal {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+    }
+
+    .stat { padding: 18px; }
+    .stat .label { color: var(--muted); font-size: 12px; font-weight: 650; }
+    .stat .number { font-size: 30px; font-weight: 850; margin: 8px 0; }
+    .stat .foot { font-size: 11px; color: var(--green); }
+
+    .tabs {
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+
+    .tab, .btn {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-size: 13px;
+      font-weight: 750;
+    }
+
+    .tab { background: white; color: var(--muted); }
+
+    .tab.active {
+      background: var(--deep);
+      color: white;
+      border-color: var(--deep);
+    }
+
+    .btn {
+      background: var(--lime);
+      color: #15301b;
+      border: 0;
+    }
+
+    .btn.secondary {
+      background: white;
+      color: var(--ink);
+      border: 1px solid var(--line);
+    }
+
+    .btn.danger {
+      background: #fff0f0;
+      color: var(--danger);
+      border: 1px solid #f0caca;
+    }
+
+    .btn:disabled { opacity: .55; cursor: wait; }
+
+    .toolbar {
+      flex-wrap: wrap;
+      margin-bottom: 15px;
+    }
+
+    .filter {
+      display: flex;
+      flex: 1;
+      min-width: 230px;
+      gap: 9px;
+    }
+
+    .filter input, .filter select, .field input, .field select {
+      width: 100%;
+      min-width: 0;
+      padding: 11px 12px;
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      background: white;
+      color: var(--ink);
+    }
+
+    .tablebox { overflow: hidden; }
+    .table-scroll { overflow-x: auto; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 760px;
+    }
+
+    th {
+      text-align: left;
+      background: var(--soft);
+      color: var(--muted);
+      font-size: 10px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: 14px;
+    }
+
+    td {
+      padding: 14px;
+      border-top: 1px solid var(--line);
+      font-size: 13px;
+    }
+
+    tbody tr:hover { background: #f7fbf7; }
+    .event { font-weight: 800; }
+    .sub { font-size: 11px; color: var(--muted); margin-top: 4px; }
+    .time { font-weight: 850; font-variant-numeric: tabular-nums; }
+
+    .tag {
+      display: inline-block;
+      padding: 5px 8px;
+      border-radius: 6px;
+      background: var(--soft);
+      color: var(--green);
+      font-size: 10px;
+      font-weight: 800;
+    }
+
+    .actions { display: flex; gap: 6px; }
+
+    .small-btn {
+      padding: 6px 8px;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      background: white;
+      font-size: 11px;
+      font-weight: 750;
+    }
+
+    .small-btn.delete { color: var(--danger); border-color: #edcaca; }
+
+    .empty {
+      text-align: center;
+      padding: 30px;
+      color: var(--muted);
+    }
+
+    [hidden] { display: none !important; }
+
+    .bottom {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 24px;
+    }
+
+    .panel { padding: 20px; }
+    .note { font-size: 12px; line-height: 1.65; color: var(--muted); }
+
+    .progress-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: 12px;
+      margin: 15px 0 8px;
+    }
+
+    .track {
+      height: 8px;
+      background: var(--line);
+      border-radius: 99px;
+      overflow: hidden;
+    }
+
+    .bar {
+      height: 100%;
+      background: var(--green);
+      width: 0;
+    }
+
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 22px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.8;
+    }
+
+    .modal-back {
+      position: fixed;
+      inset: 0;
+      z-index: 10;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      background: #0009;
+    }
+
+    .modal-back.open { display: flex; }
+
+    .modal {
+      width: min(560px, 100%);
+      max-height: 90vh;
+      overflow: auto;
+      padding: 22px;
+      box-shadow: 0 25px 80px #0005;
+    }
+
+    .modal-head { margin-bottom: 18px; }
+    .modal-head h2 { font-size: 20px; }
+
+    .close {
+      border: 0;
+      border-radius: 8px;
+      padding: 8px 11px;
+      background: var(--soft);
+    }
+
+    .formgrid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .field { display: flex; flex-direction: column; gap: 6px; }
+    .field.full { grid-column: 1 / -1; }
+
+    .field label {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 750;
+    }
+
+    .form-actions {
+      justify-content: flex-end;
+      margin-top: 18px;
+      flex-wrap: wrap;
+    }
+
+    #status {
+      margin: 12px 0;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    #status.error { color: var(--danger); }
+    #status.success { color: var(--green); }
+
+    @media (max-width: 760px) {
+      .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .bottom { grid-template-columns: 1fr; }
+      .hero { padding-top: 22px; }
+      .section-head { align-items: flex-start; }
+    }
+
+    @media (max-width: 440px) {
+      .formgrid { grid-template-columns: 1fr; }
+      .field.full { grid-column: auto; }
+      .brand { font-size: 12px; }
+      .eyebrow { font-size: 9px; }
+    }
+  </style>
+</head>
+
+<body>
+<div id="app">
+  <header class="hero">
+    <div class="top">
+      <div class="brand">
+        <div class="crest" aria-label="SFUAP">SFUAP</div>
+        <span>SFUAP <span style="font-weight:450;color:#d8f6b6">· NATAÇÃO</span></span>
+      </div>
+      <span class="eyebrow">ÉPOCA 2026 / 2027</span>
+    </div>
+
+    <h1>Resultados que<br>marcam o ritmo.</h1>
+
+    <p>
+      O percurso na natação pura e nas águas abertas da SFUAP.
+      Tempos, provas e evolução — braçada a braçada.
+    </p>
+
+    <div class="hero-bottom">
+      <span class="pill">🏊 Natação pura</span>
+      <span class="pill">🌊 Águas abertas</span>
+      <span class="pill">🔵 SFUAP</span>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="section-head">
+      <div>
+        <h2>Desempenho</h2>
+        <div class="muted">Resumo dos resultados registados da SFUAP</div>
+      </div>
+
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn secondary" id="loginBtn">Iniciar sessão</button>
+        <button class="btn" id="addTop" hidden>＋ Adicionar resultado</button>
+      </div>
+    </div>
+
+    <div id="status" role="status">A ligar ao Supabase…</div>
+
+    <section class="stats">
+      <article class="stat">
+        <div class="label">Provas registadas</div>
+        <div class="number" id="statCount">0</div>
+        <div class="foot">Total de resultados</div>
+      </article>
+
+      <article class="stat">
+        <div class="label">Melhor marca em piscina</div>
+        <div class="number" id="statPool">—</div>
+        <div class="foot">50 m livres, se registado</div>
+      </article>
+
+      <article class="stat">
+        <div class="label">Provas de águas abertas</div>
+        <div class="number" id="statOpen">0</div>
+        <div class="foot">Resultados registados</div>
+      </article>
+
+      <article class="stat">
+        <div class="label">Pódios</div>
+        <div class="number" id="statPodium">0</div>
+        <div class="foot">Classificações 1.º, 2.º ou 3.º</div>
+      </article>
+    </section>
+
+    <div class="section-head">
+      <div>
+        <h2>Resultados</h2>
+        <div class="muted">Filtra por disciplina, prova ou competição.</div>
+      </div>
+      <span class="tiny" id="resultCount">0 resultados</span>
+    </div>
+
+    <div class="tabs" role="tablist">
+      <button class="tab active" data-kind="all">Todos</button>
+      <button class="tab" data-kind="pool">Natação pura</button>
+      <button class="tab" data-kind="open">Águas abertas</button>
+    </div>
+
+    <div class="toolbar">
+      <div class="filter">
+        <input id="search" placeholder="Pesquisar prova ou competição…" aria-label="Pesquisar resultados">
+        <select id="year" aria-label="Filtrar por ano">
+          <option value="all">Todos os anos</option>
+        </select>
+      </div>
+      <button class="btn secondary" id="export">Exportar CSV ↓</button>
+    </div>
+
+    <div class="tablebox">
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr>
+              <th>Prova / distância</th>
+              <th>Competição</th>
+              <th>Data</th>
+              <th>Marca / tempo</th>
+              <th>Classificação geral</th>
+              <th>Escalão / classificação</th>
+              <th>Tipo</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody id="rows"></tbody>
+        </table>
+      </div>
+      <div class="empty" id="empty" hidden>Não foram encontrados resultados.</div>
+    </div>
+
+    <div class="bottom">
+      <section class="panel">
+        <h3>Objetivos da época</h3>
+        <p class="note">Acompanha o número de resultados registados durante a época.</p>
+        <div class="progress-row">
+          <span>Registar resultados</span>
+          <strong id="goalCount">0 / 20</strong>
+        </div>
+        <div class="track"><div class="bar" id="goalBar"></div></div>
+      </section>
+
+      <section class="panel">
+        <h3>Sobre este registo</h3>
+        <p class="note">
+          Este site organiza resultados de natação pura e águas abertas associados
+          à SFUAP. Confirma os dados antes de os partilhares. Este é um projeto
+          pessoal e não constitui uma página oficial do clube.
+        </p>
+        <p class="note">Os resultados são guardados na base de dados Supabase.</p>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    SFUAP · NATAÇÃO · Dedicação, evolução e espírito de equipa.<br>
+    Projeto pessoal não oficial.
+  </footer>
+</div>
+
+<div class="modal-back" id="resultModal">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="resultModalTitle">
+    <div class="modal-head">
+      <h2 id="resultModalTitle">Adicionar resultado</h2>
+      <button class="close" id="closeResult" aria-label="Fechar">✕</button>
+    </div>
+
+    <form id="resultForm">
+      <div class="formgrid">
+        <div class="field">
+          <label for="kind">Disciplina</label>
+          <select id="kind" required>
+            <option value="pool">Natação pura</option>
+            <option value="open">Águas abertas</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="distance">Distância / prova</label>
+          <input id="distance" required placeholder="Ex.: 100 m livres">
+        </div>
+
+        <div class="field full">
+          <label for="meet">Competição</label>
+          <input id="meet" required placeholder="Nome da competição">
+        </div>
+
+        <div class="field">
+          <label for="date">Data</label>
+          <input id="date" type="date" required>
+        </div>
+
+        <div class="field">
+          <label for="time">Marca / tempo</label>
+          <input id="time" required placeholder="Ex.: 00:58.42">
+        </div>
+
+        <div class="field">
+          <label for="place">Classificação geral</label>
+          <input id="place" placeholder="Ex.: 5.º lugar">
+        </div>
+
+        <div class="field">
+          <label for="ageGroup">Escalão</label>
+          <input id="ageGroup" placeholder="Ex.: Juvenis A">
+        </div>
+
+        <div class="field">
+          <label for="ageGroupPlace">Classificação no escalão</label>
+          <input id="ageGroupPlace" placeholder="Ex.: 2.º lugar">
+        </div>
+
+        <div class="field">
+          <label for="season">Ano</label>
+          <input id="season" type="number" min="2000" max="2100" required>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="button" class="btn secondary" id="cancelResult">Cancelar</button>
+        <button type="submit" class="btn" id="saveResult">Guardar resultado</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="modal-back" id="loginModal">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="loginTitle">
+    <div class="modal-head">
+      <h2 id="loginTitle">Acesso de administrador</h2>
+      <button class="close" id="closeLogin" aria-label="Fechar">✕</button>
+    </div>
+
+    <form id="loginForm">
+      <div class="formgrid">
+        <div class="field full">
+          <label for="loginEmail">Email</label>
+          <input id="loginEmail" type="email" autocomplete="username" required>
+        </div>
+
+        <div class="field full">
+          <label for="loginPassword">Palavra-passe</label>
+          <input id="loginPassword" type="password" autocomplete="current-password" required>
+        </div>
+      </div>
+
+      <p class="tiny">Inicia sessão com a conta de administrador criada no Supabase.</p>
+
+      <div class="form-actions">
+        <button type="button" class="btn secondary" id="cancelLogin">Cancelar</button>
+        <button type="submit" class="btn">Iniciar sessão</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+const SUPABASE_URL = 'https://dckkjlvobvxugnvawtcj.supabase.co';
+const SUPABASE_ANON_KEY = 'sb_publishable_8IrDqplktlBsKAfSIrUm8w_WBgGIme1';
+const ADMIN_UID = 'f65a41f3-23c3-441c-b624-4725071a3831';
+
+// Identificação do clube para este site.
+const CLUB_NAME = 'SFUAP';
+
+const $ = id => document.getElementById(id);
+const currentYear = new Date().getFullYear();
+
+let db = null;
+let session = null;
+let results = [];
+let activeKind = 'all';
+let editingId = null;
+
+const configured =
+  /^https:\/\/.+\.supabase\.co\/?$/.test(SUPABASE_URL) &&
+  SUPABASE_ANON_KEY.length > 20 &&
+  !SUPABASE_ANON_KEY.includes('A_TUA_CHAVE') &&
+  /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(ADMIN_UID);
+
+function isAdmin() {
+  return Boolean(session?.user && session.user.id === ADMIN_UID);
+}
+
+function labelKind(kind) {
+  return kind === 'pool' ? 'Natação pura' : 'Águas abertas';
+}
+
+function formatDate(value) {
+  if (!value) return '—';
+  const parts = String(value).split('-');
+
+  return parts.length === 3
+    ? `${parts[2]}/${parts[1]}/${parts[0]}`
+    : value;
+}
+
+function escapeHtml(value) {
+  return String(value ?? '').replace(/[&<>"']/g, char => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;'
+  })[char]);
+}
+
+function setStatus(message, type = '') {
+  $('status').textContent = message;
+  $('status').className = type;
+}
+
+function setAuthUI() {
+  const admin = isAdmin();
+  $('addTop').hidden = !admin;
+  $('loginBtn').textContent = admin ? 'Terminar sessão' : 'Iniciar sessão';
+  render();
+}
+
+function openResultModal(item = null) {
+  if (!isAdmin()) {
+    setStatus('Tens de iniciar sessão como administrador.', 'error');
+    return;
+  }
+
+  editingId = item ? item.id : null;
+
+  $('resultModalTitle').textContent = item ? 'Editar resultado' : 'Adicionar resultado';
+  $('saveResult').textContent = item ? 'Guardar alterações' : 'Guardar resultado';
+
+  $('kind').value = item?.kind || 'pool';
+  $('distance').value = item?.distance || '';
+  $('meet').value = item?.meet || '';
+  $('date').value = item?.date || '';
+  $('time').value = item?.time || '';
+  $('place').value = item?.overall_place ?? item?.place ?? '';
+  $('ageGroup').value = item?.age_group || '';
+  $('ageGroupPlace').value = item?.age_group_place || '';
+  $('season').value = item?.season || currentYear;
+
+  $('resultModal').classList.add('open');
+}
+
+function closeResultModal() {
+  $('resultModal').classList.remove('open');
+  editingId = null;
+}
+
+function closeLoginModal() {
+  $('loginModal').classList.remove('open');
+}
+
+function populateYears() {
+  const years = [...new Set(
+    results.map(r => String(r.season)).filter(Boolean)
+  )].sort((a, b) => Number(b) - Number(a));
+
+  const select = $('year');
+  const previous = select.value;
+
+  select.innerHTML = '<option value="all">Todos os anos</option>';
+
+  years.forEach(year => {
+    const option = document.createElement('option');
+    option.value = year;
+    option.textContent = year;
+    select.appendChild(option);
+  });
+
+  if (years.includes(previous)) select.value = previous;
+}
+
+function render() {
+  const query = $('search').value.trim().toLocaleLowerCase('pt-PT');
+  const year = $('year').value;
+  const admin = isAdmin();
+
+  const filtered = results.filter(r => {
+    const matchesKind = activeKind === 'all' || r.kind === activeKind;
+
+    const searchable = [
+      r.distance,
+      r.meet,
+      r.overall_place ?? r.place ?? '',
+      r.age_group || '',
+      r.age_group_place || ''
+    ].join(' ').toLocaleLowerCase('pt-PT');
+
+    const matchesSearch = searchable.includes(query);
+    const matchesYear = year === 'all' || String(r.season) === year;
+
+    return matchesKind && matchesSearch && matchesYear;
+  });
+
+  $('rows').innerHTML = filtered.map(r => `
+    <tr>
+      <td>
+        <div class="event">${escapeHtml(r.distance)}</div>
+        <div class="sub">${escapeHtml(labelKind(r.kind))}</div>
+      </td>
+      <td>${escapeHtml(r.meet)}</td>
+      <td>${escapeHtml(formatDate(r.date))}</td>
+      <td><span class="time">${escapeHtml(r.time)}</span></td>
+      <td>${escapeHtml(r.overall_place ?? r.place ?? '—')}</td>
+      <td>
+        ${escapeHtml(r.age_group || '—')}
+        <div class="sub">${escapeHtml(r.age_group_place || '')}</div>
+      </td>
+      <td><span class="tag">${escapeHtml(labelKind(r.kind))}</span></td>
+      <td>
+        ${admin ? `
+          <div class="actions">
+            <button type="button" class="small-btn" data-edit="${escapeHtml(r.id)}">Editar</button>
+            <button type="button" class="small-btn delete" data-delete="${escapeHtml(r.id)}">Apagar</button>
+          </div>
+        ` : '—'}
+      </td>
+    </tr>
+  `).join('');
+
+  $('empty').hidden = filtered.length > 0;
+  $('resultCount').textContent =
+    `${filtered.length} resultado${filtered.length === 1 ? '' : 's'}`;
+
+  $('statCount').textContent = results.length;
+  $('statOpen').textContent = results.filter(r => r.kind === 'open').length;
+
+  $('statPodium').textContent = results.filter(r => {
+    const position = String(r.overall_place ?? r.place ?? '').trim();
+    return /^(?:1|2|3)(?:\.º|\.ª|º|ª|o|a)?(?:\s+ lugar)?$/i.test(position);
+  }).length;
+
+  const pool = results.filter(r =>
+    r.kind === 'pool' && /50\s*m?\s*livres/i.test(r.distance || '')
+  );
+
+  $('statPool').textContent = pool.length
+    ? pool.map(r => r.time).sort((a, b) =>
+        String(a).localeCompare(String(b), 'en', { numeric: true })
+      )[0]
+    : '—';
+
+  $('goalCount').textContent = `${results.length} / 20`;
+  $('goalBar').style.width = `${Math.min(100, results.length / 20 * 100)}%`;
+}
+
+// Carrega exclusivamente os resultados da SFUAP.
+async function loadResults() {
+  if (!db) return;
+
+  setStatus('A carregar resultados da SFUAP…');
+
+  const { data, error } = await db
+    .from('swim_results')
+    .select('*')
+    .ilike('club', '%SFUAP%')
+    .order('date', { ascending: false });
+
+  if (error) {
+    console.error('Erro ao carregar resultados:', error);
+    results = [];
+    populateYears();
+    render();
+
+    setStatus(
+      'Não foi possível carregar os resultados. Confirma se a coluna club existe e se as políticas RLS permitem a leitura.',
+      'error'
+    );
+    return;
+  }
+
+  results = data || [];
+  populateYears();
+  render();
+  setStatus('Resultados da SFUAP atualizados.', 'success');
+}
+
+document.querySelectorAll('.tab').forEach(button => {
+  button.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(tab =>
+      tab.classList.toggle('active', tab === button)
+    );
+
+    activeKind = button.dataset.kind;
+    render();
+  });
+});
+
+$('search').addEventListener('input', render);
+$('year').addEventListener('change', render);
+
+$('addTop').addEventListener('click', () => openResultModal());
+$('closeResult').addEventListener('click', closeResultModal);
+$('cancelResult').addEventListener('click', closeResultModal);
+
+$('resultModal').addEventListener('click', event => {
+  if (event.target === $('resultModal')) closeResultModal();
+});
+
+$('closeLogin').addEventListener('click', closeLoginModal);
+$('cancelLogin').addEventListener('click', closeLoginModal);
+
+$('loginModal').addEventListener('click', event => {
+  if (event.target === $('loginModal')) closeLoginModal();
+});
+
+$('loginBtn').addEventListener('click', async () => {
+  if (!db) {
+    setStatus('Configura primeiro o Supabase no código.', 'error');
+    return;
+  }
+
+  if (isAdmin()) {
+    const { error } = await db.auth.signOut();
+
+    if (error) {
+      setStatus('Não foi possível terminar a sessão.', 'error');
+      return;
+    }
+
+    session = null;
+    setAuthUI();
+    setStatus('Sessão terminada.');
+    return;
+  }
+
+  $('loginModal').classList.add('open');
+});
+
+$('loginForm').addEventListener('submit', async event => {
+  event.preventDefault();
+
+  if (!db) {
+    setStatus('Configura primeiro o Supabase no código.', 'error');
+    return;
+  }
+
+  const { data, error } = await db.auth.signInWithPassword({
+    email: $('loginEmail').value.trim(),
+    password: $('loginPassword').value
+  });
+
+  if (error) {
+    console.error('Erro de login:', error);
+    setStatus('Falha no login. Confirma o email e a palavra-passe.', 'error');
+    return;
+  }
+
+  if (data.user.id !== ADMIN_UID) {
+    await db.auth.signOut();
+    session = null;
+    setAuthUI();
+    setStatus('Esta conta não está autorizada como administradora.', 'error');
+    closeLoginModal();
+    return;
+  }
+
+  session = data.session;
+  $('loginForm').reset();
+  closeLoginModal();
+  setAuthUI();
+  setStatus('Sessão de administrador iniciada.', 'success');
+
+  await loadResults();
+});
+
+// Adicionar e editar resultados da SFUAP.
+$('resultForm').addEventListener('submit', async event => {
+  event.preventDefault();
+
+  if (!db || !isAdmin()) {
+    setStatus('Inicia sessão como administrador antes de guardar.', 'error');
+    return;
+  }
+
+  const record = {
+    club: CLUB_NAME,
+    kind: $('kind').value,
+    distance: $('distance').value.trim(),
+    meet: $('meet').value.trim(),
+    date: $('date').value,
+    time: $('time').value.trim(),
+    overall_place: $('place').value.trim() || null,
+    age_group: $('ageGroup').value.trim() || null,
+    age_group_place: $('ageGroupPlace').value.trim() || null,
+    season: Number($('season').value)
+  };
+
+  const wasEditing = editingId !== null;
+  const idToEdit = editingId;
+
+  $('saveResult').disabled = true;
+
+  try {
+    let response;
+
+    if (wasEditing) {
+      response = await db
+        .from('swim_results')
+        .update(record)
+        .eq('id', idToEdit)
+        .ilike('club', '%SFUAP%');
+    } else {
+      response = await db
+        .from('swim_results')
+        .insert(record);
+    }
+
+    if (response.error) throw response.error;
+
+    closeResultModal();
+    await loadResults();
+
+    setStatus(
+      wasEditing ? 'Resultado da SFUAP atualizado.' : 'Resultado adicionado à SFUAP.',
+      'success'
+    );
+  } catch (error) {
+    console.error('Erro ao guardar resultado:', error);
+
+    setStatus(
+      'Não foi possível guardar. Confirma se a coluna club existe e se as políticas RLS permitem a operação.',
+      'error'
+    );
+  } finally {
+    $('saveResult').disabled = false;
+  }
+});
+
+// Editar e apagar apenas resultados associados à SFUAP.
+$('rows').addEventListener('click', async event => {
+  const editButton = event.target.closest('[data-edit]');
+  const deleteButton = event.target.closest('[data-delete]');
+
+  if (!isAdmin()) return;
+
+  if (editButton) {
+    const item = results.find(r => String(r.id) === editButton.dataset.edit);
+
+    if (item && String(item.club || '').toLowerCase().includes('sfuap')) {
+      openResultModal(item);
+    }
+
+    return;
+  }
+
+  if (deleteButton) {
+    const item = results.find(r => String(r.id) === deleteButton.dataset.delete);
+
+    if (!item) return;
+
+    if (!String(item.club || '').toLowerCase().includes('sfuap')) {
+      setStatus('Só podes apagar resultados da SFUAP neste site.', 'error');
+      return;
+    }
+
+    if (!confirm(`Queres apagar "${item.distance}" — ${item.meet}?`)) return;
+
+    const { error } = await db
+      .from('swim_results')
+      .delete()
+      .eq('id', item.id)
+      .ilike('club', '%SFUAP%');
+
+    if (error) {
+      console.error('Erro ao apagar resultado:', error);
+      setStatus('Não foi possível apagar. Confirma as políticas RLS.', 'error');
+      return;
+    }
+
+    await loadResults();
+    setStatus('Resultado da SFUAP apagado.', 'success');
+  }
+});
+
+// Exportar os resultados carregados para CSV.
+$('export').addEventListener('click', () => {
+  const headings = [
+    'Clube',
+    'Disciplina',
+    'Prova',
+    'Competição',
+    'Data',
+    'Marca',
+    'Classificação geral',
+    'Escalão',
+    'Classificação no escalão',
+    'Ano'
+  ];
+
+  const data = [
+    headings,
+    ...results.map(r => [
+      r.club || CLUB_NAME,
+      labelKind(r.kind),
+      r.distance,
+      r.meet,
+      r.date,
+      r.time,
+      r.overall_place ?? r.place ?? '',
+      r.age_group || '',
+      r.age_group_place || '',
+      r.season
+    ])
+  ];
+
+  const csv = '\ufeff' + data.map(row =>
+    row.map(value => `"${String(value ?? '').replace(/"/g, '""')}"`).join(';')
+  ).join('\r\n');
+
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+
+  link.href = url;
+  link.download = 'resultados-sfuap.csv';
+
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  URL.revokeObjectURL(url);
+});
+
+async function init() {
+  $('season').value = currentYear;
+
+  if (!configured) {
+    setStatus(
+      'Falta configurar o URL, a chave pública e o UUID completo no início do código.',
+      'error'
+    );
+
+    $('empty').hidden = false;
+    $('empty').textContent = 'Configura o Supabase para carregar os resultados.';
+    $('loginBtn').disabled = true;
+    return;
+  }
+
+  if (!window.supabase) {
+    setStatus(
+      'Não foi possível carregar a biblioteca Supabase. Verifica a ligação à internet.',
+      'error'
+    );
+    return;
+  }
+
+  try {
+    db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    const { data, error } = await db.auth.getSession();
+    if (error) throw error;
+
+    session = data.session;
+
+    db.auth.onAuthStateChange((_event, newSession) => {
+      session = newSession;
+      setAuthUI();
+      if (db) loadResults();
+    });
+
+    setAuthUI();
+    await loadResults();
+  } catch (error) {
+    console.error('Erro de inicialização:', error);
+
+    setStatus(
+      'Erro de ligação ao Supabase. Confirma o URL, a chave e as configurações.',
+      'error'
+    );
+  }
+}
+
+init();
+</script>
+</body>
+</html>
